@@ -9,6 +9,7 @@ import android.graphics.Paint.Cap;
 import android.graphics.Path;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.Rect;
+import android.renderscript.Sampler;
 
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
@@ -404,6 +405,14 @@ public class LineChartRenderer extends AbstractChartRenderer {
             canvas.drawRect(rawX - pointRadius, rawY - pointRadius, rawX + pointRadius, rawY + pointRadius,
                     pointPaint);
             canvas.restore();
+        } else if (ValueShape.TRIANGLE.equals(line.getShape())){
+            /*画一个空心三角形*/
+            Path path=new Path();
+            path.moveTo(rawX - pointRadius * 1.3f,rawY);
+            path.lineTo(rawX,rawY - pointRadius * 1.3f);
+            path.lineTo(rawX + pointRadius * 1.3f,rawY);
+            path.close();
+            canvas.drawPath(path, pointPaint);
         } else {
             throw new IllegalArgumentException("Invalid point shape: " + line.getShape());
         }

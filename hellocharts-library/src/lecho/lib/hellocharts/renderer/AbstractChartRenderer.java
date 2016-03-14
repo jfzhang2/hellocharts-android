@@ -112,7 +112,9 @@ public abstract class AbstractChartRenderer implements ChartRenderer {
                 labelBackgroundPaint.setColor(autoBackgroundColor);
             }
 
-            canvas.drawRect(labelBackgroundRect, labelBackgroundPaint);
+            //修改为绘制圆角矩形
+            //canvas.drawRect(labelBackgroundRect, labelBackgroundPaint);
+            canvas.drawRoundRect(labelBackgroundRect, 20f, 20f, labelBackgroundPaint);
 
             textX = labelBackgroundRect.left + labelMargin;
             textY = labelBackgroundRect.bottom - labelMargin;

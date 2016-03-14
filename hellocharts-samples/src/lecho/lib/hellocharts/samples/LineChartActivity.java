@@ -1,5 +1,6 @@
 package lecho.lib.hellocharts.samples;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import lecho.lib.hellocharts.animation.ChartAnimationListener;
 import lecho.lib.hellocharts.gesture.ZoomType;
@@ -43,23 +45,33 @@ public class LineChartActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        //对应的是折线图的控件
         private LineChartView chart;
         private LineChartData data;
+        //默认的线条的数目是1
         private int numberOfLines = 1;
+        //最多支持5个线条
         private int maxNumberOfLines = 4;
+        //默认点的数目是12
         private int numberOfPoints = 12;
 
+        //依据线条的个数以及默认的每条线条对应的点数  得到坐标点的个数
         float[][] randomNumbersTab = new float[maxNumberOfLines][numberOfPoints];
 
+        //默认是有坐标系的
         private boolean hasAxes = true;
+        //默认是有坐标轴的刻度的
         private boolean hasAxesNames = true;
+        //默认是有线条的
         private boolean hasLines = true;
+        //默认是有点的
         private boolean hasPoints = true;
-        private ValueShape shape = ValueShape.CIRCLE;
+        private ValueShape shape = ValueShape.TRIANGLE;
         private boolean isFilled = false;
         private boolean hasLabels = false;
         private boolean isCubic = false;
         private boolean hasLabelForSelected = false;
+        //对应的点是有颜色的
         private boolean pointsHaveDifferentColor;
 
         public PlaceholderFragment() {
@@ -211,7 +223,7 @@ public class LineChartActivity extends ActionBarActivity {
             // Reset viewport height range to (0,100)
             final Viewport v = new Viewport(chart.getMaximumViewport());
             v.bottom = 0;
-            v.top = 100;
+            v.top = 10000;
             v.left = 0;
             v.right = numberOfPoints - 1;
             chart.setMaximumViewport(v);
@@ -225,11 +237,11 @@ public class LineChartActivity extends ActionBarActivity {
 
                 List<PointValue> values = new ArrayList<PointValue>();
                 for (int j = 0; j < numberOfPoints; ++j) {
-                    values.add(new PointValue(j, randomNumbersTab[i][j]));
+                    values.add(new PointValue(j, randomNumbersTab[i][j] + 1000 * (new Random().nextInt(10))));
                 }
 
                 Line line = new Line(values);
-                line.setColor(ChartUtils.COLORS[i]);
+                line.setColor(Color.parseColor("#C0C0C0"));
                 line.setShape(shape);
                 line.setCubic(isCubic);
                 line.setFilled(isFilled);
